@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "315586528183",
+    "firebase_url": "https://exomusic-90158.firebaseio.com",
+    "project_id": "exomusic-90158",
+    "storage_bucket": "exomusic-90158.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315586528183:android:c74eb327c17a6dbb",
+        "android_client_info": {
+          "package_name": "id.asharimh.exomusicplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315586528183-lodam1tna7ls0kgcpp9do4k9qut6a6kl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.asharimh.exomusicplayer",
+            "certificate_hash": "913c5d6b083df0beb405ace169286dd9876320d4"
+          }
+        },
+        {
+          "client_id": "315586528183-1171srbo7gvcbm4j0q1t1vncbfgv44ct.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFIxDjQ8chCFO9Bt6FNJhZtu2sbHNJjjU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315586528183-1171srbo7gvcbm4j0q1t1vncbfgv44ct.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
