@@ -79,38 +79,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayoutEmbuh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
 
-            <LinearLayout
-                android:id="@+id/linearLayoutEmbuhTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewEmbuh"
-                    style="@style/separatorBeranda"
-                    android:text="BARU DIMAINKAN" />
-
-                <!--<HorizontalScrollView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:id="@+id/horizontalScrollViewBaru"-->
-                <!--&gt;-->
-                <GridView
-                    android:id="@+id/gridViewEmbuh"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:numColumns="2">
-
-                </GridView>
-                <!--</HorizontalScrollView>-->
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>

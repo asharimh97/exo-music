@@ -80,14 +80,12 @@ public class BerandaFragment extends Fragment {
 
         GridView gridViewPopuler = (GridView) view.findViewById(R.id.gridViewPopuler);
         GridView gridViewBaru = (GridView) view.findViewById(R.id.gridViewBaru);
-        GridView gridViewEmbuh = (GridView) view.findViewById(R.id.gridViewEmbuh);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
 //                R.layout.layout_grid_view, R.id.judulLaguGrid, populer);
         ItemsAdapter adapter = new ItemsAdapter(view.getContext(), songs);
 
         gridViewPopuler.setAdapter(adapter);
         gridViewBaru.setAdapter(adapter);
-        gridViewEmbuh.setAdapter(adapter);
 
         return view ;
     }
