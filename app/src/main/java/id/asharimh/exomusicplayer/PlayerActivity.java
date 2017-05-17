@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     ImageView imageViewPlayPause, imageViewBackButton ;
     MediaPlayer mediaPlayer ;
+    ProgressBar progressBar;
     String url, musicTitle, musicDaerah ;
     TextView songTitle, songDaerah ;
     int lastPosition = -1;
@@ -37,6 +39,7 @@ public class PlayerActivity extends AppCompatActivity {
         imageViewBackButton = (ImageView) findViewById(R.id.imageViewBackButton);
         songTitle = (TextView) findViewById(R.id.textViewSongDescriptionTitle);
         songDaerah = (TextView) findViewById(R.id.textViewSongDescriptionDaerah);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarDuration);
 
         songTitle.setText(musicTitle);
         songDaerah.setText(musicDaerah);
@@ -68,6 +71,10 @@ public class PlayerActivity extends AppCompatActivity {
                         try {
                             mediaPlayer.setDataSource(url);
                             mediaPlayer.prepare();
+                            int duration = mediaPlayer.getDuration() ;
+                            progressBar.setMax(duration);
+                            System.out.println(duration);
+//                            progressBar.postDelayed(onEverySecond)
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -76,6 +83,7 @@ public class PlayerActivity extends AppCompatActivity {
                     imageViewPlayPause.setImageResource(R.drawable.pausebutton);
                 }else{
                     lastPosition = mediaPlayer.getCurrentPosition();
+
                     mediaPlayer.pause();
                     imageViewPlayPause.setImageResource(R.drawable.playbutton);
                 }
@@ -84,4 +92,11 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
     }
+
+
+//    public void onPrepared(MediaPlayer arg){
+//        int duration = mediaPlayer.getDuration();
+//        progressBar.setMax(duration);
+//
+//    }
 }

@@ -38,7 +38,7 @@ public class BerandaFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     ArrayList<MusicData> musicDatas ;
-    GridView gridViewPopuler, gridViewBaru ;
+    GridView gridViewPopuler ;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -87,7 +87,6 @@ public class BerandaFragment extends Fragment {
         musicDatas = new ArrayList<MusicData>() ;
 
         gridViewPopuler = (GridView) view.findViewById(R.id.gridViewPopuler);
-        gridViewBaru = (GridView) view.findViewById(R.id.gridViewBaru);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
 //                R.layout.layout_grid_view, R.id.judulLaguGrid, populer);
         final MusicAdapter adapter = new MusicAdapter(view.getContext(), musicDatas);
@@ -132,7 +131,6 @@ public class BerandaFragment extends Fragment {
         } ;
         myRef.addChildEventListener(childEventListener) ;
         gridViewPopuler.setAdapter(adapter);
-        gridViewBaru.setAdapter(adapter);
 
         gridViewPopuler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

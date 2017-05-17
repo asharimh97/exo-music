@@ -10,5 +10,11 @@ public class MusicData {
     public String judul ;
     public String linkSumber ;
     public String linkLagu ;
+    public String nextDaerah ;
+    public String nextJudul ;
+    public String nextLink ;
+    public String prevDaerah ;
+    public String prevJudul ;
+    public String prevLink ;
     public String sumber ;
 }

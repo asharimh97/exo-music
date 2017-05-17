@@ -5,32 +5,18 @@
     tools:context="id.asharimh.exomusicplayer.BerandaFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearLayoutPopuler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
 
             <LinearLayout
                 android:id="@+id/linearLayoutPopulerTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textViewPopulerTitle"
                     style="@style/separatorBeranda"
                     android:text="Paling Populer" />
-                <!--<HorizontalScrollView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:id="@+id/horizontalScrollViewPopuler"-->
-                <!--&gt;-->
 
                 <GridView
                     android:id="@+id/gridViewPopuler"
@@ -40,46 +26,6 @@
 
                 </GridView>
 
-                <!--</HorizontalScrollView>-->
-
-
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutBaru"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
-
-            <LinearLayout
-                android:id="@+id/linearLayoutBaruTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewBaru"
-                    style="@style/separatorBeranda"
-                    android:text="BARU DIMAINKAN" />
-
-                <!--<HorizontalScrollView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:id="@+id/horizontalScrollViewBaru"-->
-                <!--&gt;-->
-                <GridView
-                    android:id="@+id/gridViewBaru"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:numColumns="2">
-
-                </GridView>
-                <!--</HorizontalScrollView>-->
-            </LinearLayout>
-        </LinearLayout>
-
-
-    </LinearLayout>
 
 </FrameLayout>

@@ -21,15 +21,8 @@
         android:text="Beranda" />
 
 
-    <ScrollView
-        android:id="@+id/containerData"
-        android:layout_below="@+id/textViewPageName"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent">
-
-    </ScrollView>
-
     <LinearLayout
+        android:id="@+id/linearLayoutNav"
         android:background="#121212"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
@@ -124,5 +117,15 @@
         android:layout_below="@+id/containerData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/containerData"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/textViewPageName"
+        android:layout_above="@+id/linearLayoutNav"
+        android:layout_alignParentStart="true">
+
+    </ScrollView>
 
 </RelativeLayout>
