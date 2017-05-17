@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ScrollView containerData ;
     FragmentManager fragmentManager ;
     FragmentTransaction fragmentTransaction ;
+    ArrayList<MusicData> musicDatas ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,20 +108,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
         final String TAG = "Firebase data " ;
+        musicDatas = new ArrayList<MusicData>() ;
 
         // Firebase set up
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("musics").child("data");
+        DatabaseReference myRef = database.getReference("musics");
         // Read from the database
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d(TAG, "Child music added : " + dataSnapshot.getKey()) ;
+                MusicData music = dataSnapshot.getValue(MusicData.class) ;
+                musicDatas.add(music) ;
+                System.out.println(dataSnapshot);
+                System.out.println(music);
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Log.d(TAG, "Child music changed : " + dataSnapshot.getKey()) ;
+                MusicData music = dataSnapshot.getValue(MusicData.class) ;
+                System.out.println(dataSnapshot);
+                System.out.println(music);
             }
 
             @Override
