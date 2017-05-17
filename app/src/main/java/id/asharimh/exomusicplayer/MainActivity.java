@@ -122,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToPlay(View v){
         Intent playIntent = new Intent(this, PlayerActivity.class) ;
+        playIntent.putExtra(BaseClass.WILL_PLAY, "https://firebasestorage.googleapis.com/v0/b/ta-exo.appspot.com/o/Butet%20-%20Jessica%20N.m4a?alt=media&token=a888694e-3f01-4ce4-8f6f-b9c11f39113b") ;
+        playIntent.putExtra(BaseClass.WILL_PLAY_TITLE, "Butet") ;
+        playIntent.putExtra(BaseClass.WILL_PLAY_DAERAH, "Sumatera Utara") ;
         startActivity(playIntent);
     }
 

@@ -3,14 +3,17 @@ package id.asharimh.exomusicplayer;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +38,7 @@ public class BerandaFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     ArrayList<MusicData> musicDatas ;
+    GridView gridViewPopuler, gridViewBaru ;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -74,7 +78,7 @@ public class BerandaFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
@@ -82,14 +86,14 @@ public class BerandaFragment extends Fragment {
         final String TAG = "Firebase data " ;
         musicDatas = new ArrayList<MusicData>() ;
 
-        GridView gridViewPopuler = (GridView) view.findViewById(R.id.gridViewPopuler);
-        GridView gridViewBaru = (GridView) view.findViewById(R.id.gridViewBaru);
+        gridViewPopuler = (GridView) view.findViewById(R.id.gridViewPopuler);
+        gridViewBaru = (GridView) view.findViewById(R.id.gridViewBaru);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
 //                R.layout.layout_grid_view, R.id.judulLaguGrid, populer);
-        MusicAdapter adapter = new MusicAdapter(view.getContext(), musicDatas);
+        final MusicAdapter adapter = new MusicAdapter(view.getContext(), musicDatas);
 
         // Firebase set up
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("musics");
         System.out.println(database + " " + myRef);
         // Read from the database
@@ -129,6 +133,39 @@ public class BerandaFragment extends Fragment {
         myRef.addChildEventListener(childEventListener) ;
         gridViewPopuler.setAdapter(adapter);
         gridViewBaru.setAdapter(adapter);
+
+        gridViewPopuler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MusicData dataMusik = (MusicData) gridViewPopuler.getItemAtPosition(i);
+                //MusicData nextSong, prevSong ;
+                String nextSong,prevSong ;
+                if (i < adapter.getCount()) {
+                    MusicData temp = (MusicData) gridViewPopuler.getItemAtPosition(i + 1);
+                    nextSong = temp.linkLagu ;
+                }else{
+                    nextSong = null ;
+                }
+
+                if (i > 0){
+                    MusicData temp = (MusicData) gridViewPopuler.getItemAtPosition(i - 1);
+                    prevSong = temp.linkLagu ;
+                }else{
+                    prevSong = null ;
+                }
+                String musicLink = dataMusik.linkLagu ;
+                String musicTitle = dataMusik.judul ;
+                String musicDaerah = dataMusik.daerah ;
+
+                Intent intent = new Intent(getContext(), PlayerActivity.class) ;
+                intent.putExtra(BaseClass.WILL_PLAY, musicLink) ;
+                intent.putExtra(BaseClass.WILL_PLAY_DAERAH, musicDaerah) ;
+                intent.putExtra(BaseClass.WILL_PLAY_TITLE, musicTitle) ;
+//                intent.putExtra(BaseClass.NEXT_SONG, nextSong) ;
+//                intent.putExtra(BaseClass.PREV_SONG, prevSong) ;
+                startActivity(intent);
+            }
+        });
 
         return view ;
     }

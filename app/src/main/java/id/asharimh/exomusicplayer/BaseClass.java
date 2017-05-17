@@ -15,6 +15,17 @@ public class BaseClass {
 
     public static String PLAY_STATE = "PAUSED" ;
 
+    public static String CURRENT_MEDIA ;
+    public static String CURRENT_MEDIA_TITLE ;
+    public static String CURRENT_MEDIA_DAERAH ;
+
+    public static String WILL_PLAY = "WILL_PLAY" ;
+    public static String WILL_PLAY_TITLE = "WILL_PLAY_TITLE" ;
+    public static String WILL_PLAY_DAERAH = "WILL_PLAY_DAERAH" ;
+
+    public static String NEXT_SONG = "WILL_PLAY" ;
+    public static String PREV_SONG = "WILL_PLAY" ;
+
     public static void togglePlayState(){
         if (PLAY_STATE == "PAUSED")
             PLAY_STATE = "PLAYING" ;
