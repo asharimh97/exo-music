@@ -29,6 +29,7 @@
         <activity
             android:name=".PlayerActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ListDaerahActivity"></activity>
     </application>
 
 </manifest>

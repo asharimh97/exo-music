@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -89,7 +90,7 @@ public class BerandaFragment extends Fragment {
         gridViewPopuler = (GridView) view.findViewById(R.id.gridViewPopuler);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
 //                R.layout.layout_grid_view, R.id.judulLaguGrid, populer);
-        final MusicAdapter adapter = new MusicAdapter(view.getContext(), musicDatas);
+        final MusicAdapter adapter = new MusicAdapter(view.getContext(), BaseClass.listPlaying);
 
         // Firebase set up
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -101,7 +102,7 @@ public class BerandaFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d(TAG, "Child music added : " + dataSnapshot.getKey()) ;
                 MusicData music = dataSnapshot.getValue(MusicData.class) ;
-                musicDatas.add(music) ;
+                BaseClass.listPlaying.add(music) ;
 //                System.out.println(dataSnapshot);
 //                System.out.println(music);
             }
@@ -130,27 +131,15 @@ public class BerandaFragment extends Fragment {
             }
         } ;
         myRef.addChildEventListener(childEventListener) ;
+        BaseClass.maxIdx = BaseClass.listPlaying.size() ;
         gridViewPopuler.setAdapter(adapter);
 
         gridViewPopuler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MusicData dataMusik = (MusicData) gridViewPopuler.getItemAtPosition(i);
+                BaseClass.idx = i ;
                 //MusicData nextSong, prevSong ;
-                String nextSong,prevSong ;
-                if (i < adapter.getCount()) {
-                    MusicData temp = (MusicData) gridViewPopuler.getItemAtPosition(i + 1);
-                    nextSong = temp.linkLagu ;
-                }else{
-                    nextSong = null ;
-                }
-
-                if (i > 0){
-                    MusicData temp = (MusicData) gridViewPopuler.getItemAtPosition(i - 1);
-                    prevSong = temp.linkLagu ;
-                }else{
-                    prevSong = null ;
-                }
                 String musicLink = dataMusik.linkLagu ;
                 String musicTitle = dataMusik.judul ;
                 String musicDaerah = dataMusik.daerah ;
@@ -159,6 +148,8 @@ public class BerandaFragment extends Fragment {
                 intent.putExtra(BaseClass.WILL_PLAY, musicLink) ;
                 intent.putExtra(BaseClass.WILL_PLAY_DAERAH, musicDaerah) ;
                 intent.putExtra(BaseClass.WILL_PLAY_TITLE, musicTitle) ;
+                intent.putExtra(BaseClass.WILL_PLAY_IDX, BaseClass.idx);
+//                intent.putExtra(BaseClass.GONNA_PLAY, dataMusik) ;
 //                intent.putExtra(BaseClass.NEXT_SONG, nextSong) ;
 //                intent.putExtra(BaseClass.PREV_SONG, prevSong) ;
                 startActivity(intent);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -19,6 +19,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Beranda" />
+    <ScrollView
+        android:layout_weight="2"
+        android:id="@+id/containerData"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/textViewPageName"
+        android:layout_above="@+id/linearLayoutNav"
+        android:layout_alignParentStart="true">
+
+    </ScrollView>
 
 
     <LinearLayout
@@ -111,21 +121,5 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:textColor="#fff"
-        android:text="Holalala"
-        android:layout_below="@+id/containerData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <ScrollView
-        android:id="@+id/containerData"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/textViewPageName"
-        android:layout_above="@+id/linearLayoutNav"
-        android:layout_alignParentStart="true">
-
-    </ScrollView>
-
-</RelativeLayout>
+</LinearLayout>

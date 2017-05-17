@@ -1,12 +1,16 @@
 package id.asharimh.exomusicplayer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,8 +66,24 @@ public class DaerahFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_daerah, container, false) ;
+        final GridView gridView = (GridView) v.findViewById(R.id.gridViewData) ;
+        String[] daerah = new String[]{"Jawa", "Sumatera", "Papua","Maluku","Sulawesi","Bali","Kalimantan"} ;
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_daerah, container, false);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(),
+                R.layout.layout_grid_view, R.id.judulLaguGrid, daerah);
+        gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), ListDaerahActivity.class) ;
+                String daerahItem = (String) gridView.getItemAtPosition(i);
+                intent.putExtra("DAERAH_NAME", daerahItem);
+                startActivity(intent);
+            }
+        });
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

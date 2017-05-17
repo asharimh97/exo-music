@@ -21,7 +21,7 @@
                 <GridView
                     android:id="@+id/gridViewPopuler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="700dp"
                     android:numColumns="2">
 
                 </GridView>
