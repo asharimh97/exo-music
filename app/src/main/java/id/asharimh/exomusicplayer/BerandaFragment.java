@@ -5,11 +5,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -27,6 +34,7 @@ public class BerandaFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    ArrayList<MusicData> musicDatas ;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -69,21 +77,56 @@ public class BerandaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        String[] populer = new String[]{"Lorem", "Ipsum", "Dolorsit", "Amet"} ;
-        ArrayList<ItemData> songs = new ArrayList<ItemData>() ;
-        songs.add(new ItemData("Lorem")) ;
-        songs.add(new ItemData("Ipsum")) ;
-        songs.add(new ItemData("Dolorsit")) ;
-        songs.add(new ItemData("Amet")) ;
 
         View view = inflater.inflate(R.layout.fragment_beranda, container, false);
+        final String TAG = "Firebase data " ;
+        musicDatas = new ArrayList<MusicData>() ;
 
         GridView gridViewPopuler = (GridView) view.findViewById(R.id.gridViewPopuler);
         GridView gridViewBaru = (GridView) view.findViewById(R.id.gridViewBaru);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
 //                R.layout.layout_grid_view, R.id.judulLaguGrid, populer);
-        ItemsAdapter adapter = new ItemsAdapter(view.getContext(), songs);
+        MusicAdapter adapter = new MusicAdapter(view.getContext(), musicDatas);
 
+        // Firebase set up
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("musics");
+        System.out.println(database + " " + myRef);
+        // Read from the database
+        ChildEventListener childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d(TAG, "Child music added : " + dataSnapshot.getKey()) ;
+                MusicData music = dataSnapshot.getValue(MusicData.class) ;
+                musicDatas.add(music) ;
+//                System.out.println(dataSnapshot);
+//                System.out.println(music);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.d(TAG, "Child music changed : " + dataSnapshot.getKey()) ;
+                MusicData music = dataSnapshot.getValue(MusicData.class) ;
+//                System.out.println(dataSnapshot);
+//                System.out.println(music);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "Child music removed : " + dataSnapshot.getKey()) ;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.d(TAG, "Child music moved : " + dataSnapshot.getKey()) ;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "Child music cancelled") ;
+            }
+        } ;
+        myRef.addChildEventListener(childEventListener) ;
         gridViewPopuler.setAdapter(adapter);
         gridViewBaru.setAdapter(adapter);
 

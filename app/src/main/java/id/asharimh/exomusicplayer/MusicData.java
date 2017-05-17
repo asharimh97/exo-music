@@ -7,8 +7,8 @@ package id.asharimh.exomusicplayer;
 public class MusicData {
     public String artist ;
     public String daerah ;
-    public String sumber ;
+    public String judul ;
     public String linkSumber ;
-    public String title ;
-    public String url ;
+    public String linkLagu ;
+    public String sumber ;
 }

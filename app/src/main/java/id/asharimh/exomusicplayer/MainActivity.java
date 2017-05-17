@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     ScrollView containerData ;
     FragmentManager fragmentManager ;
     FragmentTransaction fragmentTransaction ;
-    ArrayList<MusicData> musicDatas ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         homeNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "Nampilin home", Toast.LENGTH_SHORT).show();
                 BaseClass.setPageActive("BERANDA");
                 textViewPageName.setText(BaseClass.PAGE_ACTIVE);
                 BerandaFragment bf2 = BerandaFragment.newInstance("data", "data") ;
@@ -76,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         searchNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "Nampilin search", Toast.LENGTH_SHORT).show();
                 BaseClass.setPageActive("SEARCH");
                 textViewPageName.setText(BaseClass.PAGE_ACTIVE);
                 SearchFragment sf = SearchFragment.newInstance("data", "data") ;
@@ -90,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         inboxNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "Nampilin inbox?", Toast.LENGTH_SHORT).show();
                 BaseClass.setPageActive("DAERAH");
                 textViewPageName.setText(BaseClass.PAGE_ACTIVE);
                 DaerahFragment df = DaerahFragment.newInstance("data", "data") ;
@@ -107,47 +103,6 @@ public class MainActivity extends AppCompatActivity {
             playPauseButton.setImageResource(R.drawable.circlepause);
         }
 
-        final String TAG = "Firebase data " ;
-        musicDatas = new ArrayList<MusicData>() ;
-
-        // Firebase set up
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("musics");
-        // Read from the database
-        ChildEventListener childEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d(TAG, "Child music added : " + dataSnapshot.getKey()) ;
-                MusicData music = dataSnapshot.getValue(MusicData.class) ;
-                musicDatas.add(music) ;
-                System.out.println(dataSnapshot);
-                System.out.println(music);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.d(TAG, "Child music changed : " + dataSnapshot.getKey()) ;
-                MusicData music = dataSnapshot.getValue(MusicData.class) ;
-                System.out.println(dataSnapshot);
-                System.out.println(music);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "Child music removed : " + dataSnapshot.getKey()) ;
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                Log.d(TAG, "Child music moved : " + dataSnapshot.getKey()) ;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "Child music cancelled") ;
-            }
-        } ;
-        myRef.addChildEventListener(childEventListener) ;
     }
 
     public void backFragment(View v){
