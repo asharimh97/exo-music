@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     ScrollView containerData ;
     FragmentManager fragmentManager ;
     FragmentTransaction fragmentTransaction ;
+    MediaPlayer mediaPlayer ;
+    public static TextView textViewNavJudul, textViewNavDaerah ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         inboxNavigation = (ImageView) findViewById(R.id.inboxNavigation);
         playPauseButton = (ImageView) findViewById(R.id.playPauseButton);
         containerData = (ScrollView) findViewById(R.id.containerData);
+        textViewNavDaerah = (TextView) findViewById(R.id.textViewNavigasiPlayDiskripsiDaerah);
+        textViewNavJudul = (TextView) findViewById(R.id.textViewNavigasiPlayDiskripsiJudul);
 
         Typeface tfMont = Typeface.createFromAsset(getAssets(), BaseClass.MONTSERRAT_BOLD_PATH) ;
         final TextView textViewPageName = (TextView) findViewById(R.id.textViewPageName);
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         final BerandaFragment bf = BerandaFragment.newInstance("data", "data") ;
         fragmentTransaction.add(R.id.containerData, bf) ;
         fragmentTransaction.commit() ;
+        mediaPlayer = new MediaPlayer() ;
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         homeNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,21 +128,37 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToPlay(View v){
         Intent playIntent = new Intent(this, PlayerActivity.class) ;
-        playIntent.putExtra(BaseClass.WILL_PLAY, "https://firebasestorage.googleapis.com/v0/b/ta-exo.appspot.com/o/Butet%20-%20Jessica%20N.m4a?alt=media&token=a888694e-3f01-4ce4-8f6f-b9c11f39113b") ;
-        playIntent.putExtra(BaseClass.WILL_PLAY_TITLE, "Butet") ;
-        playIntent.putExtra(BaseClass.WILL_PLAY_DAERAH, "Sumatera Utara") ;
+        if (BaseClass.CURRENT_MEDIA.equals("")){
+            playIntent.putExtra(BaseClass.WILL_PLAY, "Butet");
+            playIntent.putExtra(BaseClass.WILL_PLAY_TITLE, "Sumatera Utara");
+            playIntent.putExtra(BaseClass.WILL_PLAY_DAERAH, BaseClass.CURRENT_MEDIA_DAERAH);
+        }else {
+            playIntent.putExtra(BaseClass.WILL_PLAY, BaseClass.CURRENT_MEDIA);
+            playIntent.putExtra(BaseClass.WILL_PLAY_TITLE, BaseClass.CURRENT_MEDIA_TITLE);
+            playIntent.putExtra(BaseClass.WILL_PLAY_DAERAH, BaseClass.CURRENT_MEDIA_DAERAH);
+        }
         startActivity(playIntent);
     }
 
     public void togglePlay(View v){
         if (BaseClass.getPlayState() == "PAUSED"){
+            try {
+                mediaPlayer.setDataSource(BaseClass.CURRENT_MEDIA);
+                mediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mediaPlayer.seekTo(BaseClass.CURRENT_MEDIA_LAST_POS);
+            mediaPlayer.start();
             playPauseButton.setImageResource(R.drawable.circlepause);
         }else{
+            BaseClass.CURRENT_MEDIA_LAST_POS = mediaPlayer.getCurrentPosition();
+            mediaPlayer.pause();
             playPauseButton.setImageResource(R.drawable.circleplay);
         }
         BaseClass.togglePlayState();
 
-        Toast.makeText(getApplicationContext(), "Pencet play", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Pencet play", Toast.LENGTH_SHORT).show();
     }
 
     public void toggleImagePlay(){

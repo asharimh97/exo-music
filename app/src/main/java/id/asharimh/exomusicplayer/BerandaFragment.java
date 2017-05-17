@@ -103,6 +103,7 @@ public class BerandaFragment extends Fragment {
                 Log.d(TAG, "Child music added : " + dataSnapshot.getKey()) ;
                 MusicData music = dataSnapshot.getValue(MusicData.class) ;
                 BaseClass.listPlaying.add(music) ;
+                gridViewPopuler.setAdapter(adapter);
 //                System.out.println(dataSnapshot);
 //                System.out.println(music);
             }
@@ -131,15 +132,13 @@ public class BerandaFragment extends Fragment {
             }
         } ;
         myRef.addChildEventListener(childEventListener) ;
-        BaseClass.maxIdx = BaseClass.listPlaying.size() ;
-        gridViewPopuler.setAdapter(adapter);
+//        gridViewPopuler.setAdapter(adapter);
 
         gridViewPopuler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MusicData dataMusik = (MusicData) gridViewPopuler.getItemAtPosition(i);
                 BaseClass.idx = i ;
-                //MusicData nextSong, prevSong ;
                 String musicLink = dataMusik.linkLagu ;
                 String musicTitle = dataMusik.judul ;
                 String musicDaerah = dataMusik.daerah ;
@@ -149,9 +148,7 @@ public class BerandaFragment extends Fragment {
                 intent.putExtra(BaseClass.WILL_PLAY_DAERAH, musicDaerah) ;
                 intent.putExtra(BaseClass.WILL_PLAY_TITLE, musicTitle) ;
                 intent.putExtra(BaseClass.WILL_PLAY_IDX, BaseClass.idx);
-//                intent.putExtra(BaseClass.GONNA_PLAY, dataMusik) ;
-//                intent.putExtra(BaseClass.NEXT_SONG, nextSong) ;
-//                intent.putExtra(BaseClass.PREV_SONG, prevSong) ;
+
                 startActivity(intent);
             }
         });

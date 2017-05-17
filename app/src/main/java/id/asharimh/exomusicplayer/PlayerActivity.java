@@ -40,6 +40,8 @@ public class PlayerActivity extends AppCompatActivity {
         BaseClass.CURRENT_MEDIA = url ;
         BaseClass.CURRENT_MEDIA_DAERAH = musicDaerah ;
         BaseClass.CURRENT_MEDIA_TITLE = musicTitle ;
+        MainActivity.textViewNavJudul.setText(BaseClass.CURRENT_MEDIA_TITLE);
+        MainActivity.textViewNavDaerah.setText(BaseClass.CURRENT_MEDIA_DAERAH);
 
         //playButton = (Button) findViewById(R.id.imageViewPlayPause);
         imageViewPlayPause = (ImageView) findViewById(R.id.imageViewPlayPause);
@@ -105,6 +107,7 @@ public class PlayerActivity extends AppCompatActivity {
                     imageViewPlayPause.setImageResource(R.drawable.pausebutton);
                 }else{
                     lastPosition = mediaPlayer.getCurrentPosition();
+                    BaseClass.CURRENT_MEDIA_LAST_POS = lastPosition ;
 
                     mediaPlayer.pause();
                     imageViewPlayPause.setImageResource(R.drawable.playbutton);
@@ -118,7 +121,7 @@ public class PlayerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int next = intent.getIntExtra(BaseClass.WILL_PLAY_IDX,0) + 1 ;
-                if (next < BaseClass.maxIdx) {
+                if (next < BaseClass.listPlaying.size()) {
                     MusicData temp = BaseClass.listPlaying.get(next);
                     String nextUrl = temp.linkLagu;
                     String nextTitle = temp.judul;

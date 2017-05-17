@@ -1,5 +1,7 @@
 package id.asharimh.exomusicplayer;
 
+import android.media.MediaPlayer;
+
 import java.util.ArrayList;
 
 /**
@@ -20,11 +22,17 @@ public class BaseClass {
     public static String CURRENT_MEDIA ;
     public static String CURRENT_MEDIA_TITLE ;
     public static String CURRENT_MEDIA_DAERAH ;
+    public static int CURRENT_MEDIA_LAST_POS ;
 
     public static String WILL_PLAY = "WILL_PLAY" ;
     public static String WILL_PLAY_TITLE = "WILL_PLAY_TITLE" ;
     public static String WILL_PLAY_DAERAH = "WILL_PLAY_DAERAH" ;
     public static String WILL_PLAY_IDX = "WILL_PLAY_IDX" ;
+
+    public static int idx = 0 ;
+    public static int maxIdx ;
+
+    public static MediaPlayer mediaPlayer = new MediaPlayer();
 
     public static void togglePlayState(){
         if (PLAY_STATE == "PAUSED")
@@ -42,8 +50,5 @@ public class BaseClass {
     }
 
     public static ArrayList<MusicData> listPlaying = new ArrayList<MusicData>() ;
-
-    public static int idx = 0 ;
-    public static int maxIdx ;
 
 }
