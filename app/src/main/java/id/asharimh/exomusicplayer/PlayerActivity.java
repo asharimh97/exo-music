@@ -133,6 +133,9 @@ public class PlayerActivity extends AppCompatActivity {
                     newIntent.putExtra(BaseClass.WILL_PLAY_IDX, next);
 
                     startActivity(newIntent);
+                    mediaPlayer.stop();
+                    BaseClass.togglePlayState();
+                    Log.d("STATE", BaseClass.getPlayState()) ;
                 }
             }
         });
@@ -153,6 +156,9 @@ public class PlayerActivity extends AppCompatActivity {
                     newIntent.putExtra(BaseClass.WILL_PLAY_IDX, prev);
 
                     startActivity(newIntent);
+                    mediaPlayer.stop();
+                    BaseClass.togglePlayState();
+                    Log.d("STATE", BaseClass.getPlayState()) ;
                 }
             }
         });
